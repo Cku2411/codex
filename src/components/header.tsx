@@ -1,12 +1,16 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import Navbar from "./navbar";
 import { ThemeToggle } from "./toggleTheme";
+import { UserButton, useUser } from "@clerk/nextjs";
+import Link from "next/link";
 
 type Props = {};
 
 const Header = (props: Props) => {
+  const { user } = useUser();
   return (
     <div className="p-4 max-w-7xl flex justify-between items-center w-full">
       <div className="flex items-center gap-2">
@@ -19,7 +23,16 @@ const Header = (props: Props) => {
       {/* signUp butotn */}
       <div className="flex items-center gap-2">
         <ThemeToggle />
-        <Button variant={"pixel"}>Signup</Button>
+        {!user ? (
+          <Link href={"/sign-in"}>
+            <Button variant={"pixel"}>Signup</Button>
+          </Link>
+        ) : (
+          <div className="flex items-center gap-4">
+            <Button variant={"pixel"}>Dashboard</Button>
+            <UserButton />
+          </div>
+        )}
       </div>
     </div>
   );

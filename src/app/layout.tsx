@@ -8,6 +8,7 @@ import {
 } from "next/font/google";
 import "./globals.css";
 import ThemeProviders from "@/providers/providers";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,14 +42,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="dark">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${GameFont.variable} ${inter.variable} antialiased `}
-      >
-        <ThemeProviders attribute="class" defaultTheme="dark">
-          {children}
-        </ThemeProviders>
-      </body>
-    </html>
+    <ClerkProvider signUpUrl="/sign-up" signInUrl="/sign-in">
+      <html lang="en" suppressHydrationWarning className="dark">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} ${GameFont.variable} ${inter.variable} antialiased `}
+        >
+          <ThemeProviders attribute="class" defaultTheme="dark">
+            {children}
+          </ThemeProviders>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
