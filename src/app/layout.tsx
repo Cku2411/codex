@@ -41,11 +41,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressContentEditableWarning className="dark">
+    <html lang="en" suppressHydrationWarning className="dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${GameFont.variable} ${inter.variable} antialiased `}
       >
-        <ThemeProviders attribute="class" defaultTheme="system">
+        <ThemeProviders attribute="class" defaultTheme="dark">
           {children}
         </ThemeProviders>
       </body>
