@@ -2,10 +2,11 @@
 import React from "react";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import Navbar from "./navbar";
-import { ThemeToggle } from "./toggleTheme";
+
 import { UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
+import { ThemeToggle } from "./ToggleTheme";
+import Navbar from "./Navbar";
 
 type Props = {};
 
@@ -13,10 +14,12 @@ const Header = (props: Props) => {
   const { user } = useUser();
   return (
     <div className="p-4 max-w-7xl flex justify-between items-center w-full">
-      <div className="flex items-center gap-2">
-        <Image src={"/logo.png"} width={40} height={40} alt="logo" />
-        <h2 className="text-5xl font-bold">CodeBox</h2>
-      </div>
+      <Link href={"/"}>
+        <div className="flex items-center gap-2">
+          <Image src={"/logo.png"} width={40} height={40} alt="logo" />
+          <h2 className="text-5xl font-bold">CodeBox</h2>
+        </div>
+      </Link>
       {/* Navbar */}
       <Navbar />
 
@@ -29,7 +32,9 @@ const Header = (props: Props) => {
           </Link>
         ) : (
           <div className="flex items-center gap-4">
-            <Button variant={"pixel"}>Dashboard</Button>
+            <Link href={"/dashboard"}>
+              <Button variant={"pixel"}>Dashboard</Button>
+            </Link>
             <UserButton />
           </div>
         )}

@@ -9,6 +9,7 @@ import {
 import "./globals.css";
 import ThemeProviders from "@/providers/providers";
 import { ClerkProvider } from "@clerk/nextjs";
+import Header from "@/components/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,6 +49,9 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} ${GameFont.variable} ${inter.variable} antialiased `}
         >
           <ThemeProviders attribute="class" defaultTheme="dark">
+            <div className="flex flex-col items-center font-game">
+              <Header />
+            </div>
             {children}
           </ThemeProviders>
         </body>
