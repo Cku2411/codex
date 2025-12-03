@@ -23,3 +23,13 @@ model User {
 
   @@unique([clerkId])
 }
+
+model Courses {
+  id          String  @id @default(uuid())
+  courseId    Int
+  title       String
+  desc        String
+  bannerImage String
+  level       String? @default("Beginner")
+  tags        String?
+}
