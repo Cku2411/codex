@@ -25,11 +25,22 @@ model User {
 }
 
 model Courses {
-  id          String  @id @default(uuid())
-  courseId    Int
+  id          String    @id @default(uuid())
+  courseId    Int       @unique
   title       String
   desc        String
   bannerImage String
-  level       String? @default("Beginner")
+  level       String?   @default("Beginner")
   tags        String?
+  chapters    Chapter[]
+}
+
+model Chapter {
+  id        String  @id @default(uuid())
+  chapterId Int
+  name      String
+  desc      String
+  exercises String
+  courseId  Int
+  course    Courses @relation(fields: [courseId], references: [courseId], onDelete: Cascade)
 }
