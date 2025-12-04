@@ -16,3 +16,24 @@ export const getAllCourses = async () => {
     return { status: 500, message: "Failed to get all courses" };
   }
 };
+
+export const getCourseDetail = async (courseId: number) => {
+  try {
+    const courseDetail = await db.courses.findUnique({
+      where: { courseId: courseId },
+    });
+
+    if (!courseDetail) {
+      return { status: 404, message: "No course found" };
+    }
+
+    return {
+      status: 200,
+      course: courseDetail,
+      message: "Course fetched successfully",
+    };
+  } catch (error) {
+    console.error(error);
+    return { status: 500, message: "Failed to get course details" };
+  }
+};
