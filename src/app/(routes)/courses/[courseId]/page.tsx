@@ -20,7 +20,7 @@ const CourseDetail = (props: Props) => {
   useEffect(() => {
     const getCourseDetailsFromdb = async () => {
       setIsLoading(true);
-      await new Promise((res) => setTimeout(res, 1000));
+      //   await new Promise((res) => setTimeout(res, 1000));
       const result = await getCourseDetail(Number(courseId));
       console.log({ result });
 
@@ -37,9 +37,9 @@ const CourseDetail = (props: Props) => {
   return (
     <div className="font-game">
       <CourseDetailBanner loading={isLoading} courseDetail={courseDetails} />
-      <div className="grid grid-cols-4 p-10 md:px-24 lg:px-36">
+      <div className="grid grid-cols-4 p-10 md:px-24 lg:px-36 gap-7">
         <div className="col-span-3">
-          <CourseChapter />
+          <CourseChapter loading={isLoading} courseDetail={courseDetails} />
         </div>
         <div>Second</div>
       </div>

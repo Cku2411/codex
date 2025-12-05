@@ -40,7 +40,18 @@ model Chapter {
   chapterId Int
   name      String
   desc      String
-  exercises String
   courseId  Int
   course    Courses @relation(fields: [courseId], references: [courseId], onDelete: Cascade)
+
+  exercises Exercise[]
+}
+
+model Exercise {
+  id         String  @id @default(uuid())
+  name       String
+  slug       String
+  xp         Int
+  difficulty String
+  chapterId  String
+  Chapter    Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 }

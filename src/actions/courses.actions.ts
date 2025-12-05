@@ -21,6 +21,7 @@ export const getCourseDetail = async (courseId: number) => {
   try {
     const courseDetail = await db.courses.findUnique({
       where: { courseId: courseId },
+      include: { chapters: { include: { exercises: true } } },
     });
 
     if (!courseDetail) {

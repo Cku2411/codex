@@ -13,6 +13,21 @@ export type Courses = {
   desc: string;
   bannerImage: string;
   tags: string | null;
+  chapters?: {
+    id: string;
+    courseId: number;
+    desc: string;
+    name: string;
+    chapterId: number;
+    exercises?: {
+      id: string;
+      name: string;
+      chapterId: string;
+      slug: string;
+      xp: number;
+      difficulty: string;
+    }[];
+  }[];
 };
 
 const CourseList = () => {
