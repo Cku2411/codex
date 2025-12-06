@@ -5,6 +5,9 @@ import CourseDetailBanner from "./_components/CourseDetailBanner";
 import { getCourseDetail } from "@/actions/courses.actions";
 import { Courses } from "../_components/CourseList";
 import CourseChapter from "./_components/CourseChapter";
+import CourseStatus from "./_components/CourseStatus";
+import UpgradeToPro from "../../dashboard/_components/UpgradeToPro";
+import CommunityHelpSection from "./_components/ComunityHelpSection";
 
 type Props = {};
 
@@ -41,7 +44,11 @@ const CourseDetail = (props: Props) => {
         <div className="col-span-3">
           <CourseChapter loading={isLoading} courseDetail={courseDetails} />
         </div>
-        <div>Second</div>
+        <div>
+          <CourseStatus courseDetail={courseDetails} />
+          <UpgradeToPro />
+          <CommunityHelpSection />
+        </div>
       </div>
     </div>
   );
