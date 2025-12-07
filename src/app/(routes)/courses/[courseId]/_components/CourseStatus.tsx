@@ -32,6 +32,16 @@ const CourseStatus = ({ courseDetail }: Props) => {
       totalXp: totalXp,
     });
   };
+
+  const xpEarned = courseDetail?.enrollments?.[0]?.xpEarned || 0;
+  const updateProgress = (currenValue: number, totalNumber: number) => {
+    if (currenValue && totalNumber) {
+      const percent = (currenValue * 100) / totalNumber;
+      return percent;
+    }
+    return 0;
+  };
+
   return (
     <div className="p-4 border-3 rounded-2xl w-full">
       <h2 className="text-3xl">Course Progress</h2>
@@ -50,9 +60,15 @@ const CourseStatus = ({ courseDetail }: Props) => {
         <Image src={"/star2.gif"} width={50} height={50} alt="book" />
         <div className="w-full">
           <h2 className="flex justify-between text-2xl">
-            XP Earned <span className="text-gray-400">1/{counts.totalXp}</span>
+            XP Earned{" "}
+            <span className="text-gray-400">
+              {xpEarned}/{counts.totalXp}
+            </span>
           </h2>
-          <Progress value={37} className="mt-2" />
+          <Progress
+            value={updateProgress(xpEarned, counts.totalXp)}
+            className="mt-2"
+          />
         </div>
       </div>
     </div>

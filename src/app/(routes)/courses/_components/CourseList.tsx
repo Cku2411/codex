@@ -28,6 +28,15 @@ export type Courses = {
       difficulty: string;
     }[];
   }[];
+  enrollments:
+    | {
+        id: string;
+        courseId: number;
+        userId: string;
+        enrolledAt: Date;
+        xpEarned: number;
+      }[]
+    | undefined;
 };
 
 const CourseList = () => {

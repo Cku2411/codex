@@ -11,18 +11,32 @@ import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-type Props = { loading: boolean; courseDetail: Courses | undefined };
+type Props = {
+  loading: boolean;
+  courseDetail: Courses | undefined;
+  refreshData: () => void;
+  isEnrolled: boolean;
+  setIsEnrolled: (enroll: boolean) => void;
+};
 
-const CourseDetailBanner = ({ loading, courseDetail }: Props) => {
+const CourseDetailBanner = ({
+  loading,
+  courseDetail,
+  refreshData,
+  isEnrolled,
+  setIsEnrolled,
+}: Props) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
   const { user } = useUser();
 
-  if (!user?.id || user?.id == undefined) {
-    console.log(`No user found`);
-    router.push("/signin");
-  }
+  // if (!user?.id || user?.id == undefined) {
+  //   console.log(`No user found`);
+  //   router.push("/signin");
+  // }
+
+  // PROBLEM: Check user qua nhieu
 
   const enrolledCourse = async () => {
     setIsLoading(true);
@@ -34,8 +48,14 @@ const CourseDetailBanner = ({ loading, courseDetail }: Props) => {
 
     const res = await enRollUserToCourse(user?.id, courseDetail?.courseId);
     setIsLoading(false);
+
+    if (res.status == 201) {
+      toast.info(res.message);
+    }
+
     if (res.status == 200) {
       toast.success(res.message);
+      setIsEnrolled(true);
     }
   };
 
@@ -55,21 +75,27 @@ const CourseDetailBanner = ({ loading, courseDetail }: Props) => {
           <div className="absolute top-0 pt-24 p-10 md:px-24 lg:px-36 bg-linear-to-r from-black/80 to-white-50/50 h-full">
             <h2 className="text-6xl">{courseDetail.title}</h2>
             <p className="text-3xl">{courseDetail.desc}</p>
-            <Button
-              variant={"pixel"}
-              className="text-2xl"
-              size={"lg"}
-              disabled={isLoading}
-              onClick={enrolledCourse}
-            >
-              {isLoading ? (
-                <>
-                  <Loader2 className="animate-spin" /> Enrolling...
-                </>
-              ) : (
-                "Enroll now"
-              )}
-            </Button>
+            {isEnrolled ? (
+              <Button variant={"pixel"} className="text-2xl" size={"lg"}>
+                Continue Learning ...
+              </Button>
+            ) : (
+              <Button
+                variant={"pixel"}
+                className="text-2xl"
+                size={"lg"}
+                disabled={isLoading}
+                onClick={enrolledCourse}
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="animate-spin" /> Enrolling...
+                  </>
+                ) : (
+                  "Enroll now"
+                )}
+              </Button>
+            )}
           </div>
         </div>
       ) : (

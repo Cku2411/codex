@@ -4,7 +4,12 @@ import db from "@/lib/prisma";
 
 export const getAllCourses = async () => {
   try {
-    const courses = await db.courses.findMany();
+    const courses = await db.courses.findMany({
+      include: {
+        chapters: true,
+        enrollments: true,
+      },
+    });
 
     if (!courses || courses.length === 0) {
       return { status: 200, message: "No courses found", courses: [] };
@@ -17,11 +22,17 @@ export const getAllCourses = async () => {
   }
 };
 
-export const getCourseDetail = async (courseId: number) => {
+export const getCourseDetail = async (courseId: number, userId: string) => {
   try {
     const courseDetail = await db.courses.findUnique({
-      where: { courseId: courseId },
-      include: { chapters: { include: { exercises: true } } },
+      where: { courseId },
+      include: {
+        chapters: { include: { exercises: true } },
+        enrollments: {
+          where: { userId }, // chỉ lấy enrollment của user hiện tại
+          // select: { id: true, xpEarned: true },
+        },
+      },
     });
 
     if (!courseDetail) {
@@ -31,6 +42,7 @@ export const getCourseDetail = async (courseId: number) => {
     return {
       status: 200,
       course: courseDetail,
+      isEnroll: courseDetail.enrollments.length > 0, // true/false
       message: "Course fetched successfully",
     };
   } catch (error) {
