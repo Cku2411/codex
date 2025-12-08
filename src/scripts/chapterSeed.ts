@@ -9,7 +9,6 @@ async function main() {
     data: {
       title: "Introduction to Programming with Python",
       desc: "Learn the basics of programming using Python, covering syntax, data types, and simple projects.",
-      bannerImage: "/images/python-course.png",
       level: "Beginner",
       tags: "Python, Programming, Basics",
       chapters: {
@@ -66,7 +65,6 @@ async function main() {
     data: {
       title: "Web Development Fundamentals",
       desc: "Understand how to build websites using HTML, CSS, and JavaScript.",
-      bannerImage: "/images/webdev-course.png",
       level: "Beginner",
       tags: "HTML, CSS, JavaScript, Web",
       chapters: {
@@ -144,7 +142,6 @@ async function main() {
     data: {
       title: "Data Structures & Algorithms",
       desc: "Master essential data structures and algorithms to improve coding efficiency.",
-      bannerImage: "/images/dsa-course.png",
       level: "Intermediate",
       tags: "DSA, Algorithms, Coding Interview",
       chapters: {
@@ -201,7 +198,6 @@ async function main() {
     data: {
       title: "Full-Stack Development with Node.js & React",
       desc: "Build modern web applications using Node.js for backend and React for frontend.",
-      bannerImage: "/images/fullstack-course.png",
       level: "Advanced",
       tags: "Node.js, React, Fullstack",
       chapters: {

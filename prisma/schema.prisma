@@ -14,13 +14,14 @@ datasource db {
 }
 
 model User {
-  id           String       @id @default(uuid())
-  clerkId      String
-  name         String
-  email        String
-  points       Int?         @default(0)
-  subscription String?
-  enrollments  Enrollment[]
+  id                 String              @id @default(uuid())
+  clerkId            String
+  name               String
+  email              String
+  points             Int?                @default(0)
+  subscription       String?
+  enrollments        Enrollment[]
+  completedExercises completedExercise[]
 
   @@unique([clerkId])
 }
@@ -34,8 +35,9 @@ model Courses {
   level       String? @default("Beginner")
   tags        String?
 
-  chapters    Chapter[]
-  enrollments Enrollment[]
+  chapters           Chapter[]
+  enrollments        Enrollment[]
+  completedExercises completedExercise[]
 }
 
 model Chapter {
@@ -46,17 +48,19 @@ model Chapter {
   courseId  Int
   course    Courses @relation(fields: [courseId], references: [courseId], onDelete: Cascade)
 
-  exercises Exercise[]
+  exercises          Exercise[]
+  completedExercises completedExercise[]
 }
 
 model Exercise {
-  id         String  @id @default(uuid())
-  name       String
-  slug       String
-  xp         Int
-  difficulty String
-  chapterId  String
-  Chapter    Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  id                 String              @id @default(uuid())
+  name               String
+  slug               String
+  xp                 Int
+  difficulty         String
+  chapterId          String
+  Chapter            Chapter             @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  completedExercises completedExercise[]
 }
 
 model Enrollment {
@@ -68,4 +72,17 @@ model Enrollment {
 
   course Courses @relation(fields: [courseId], references: [courseId], onDelete: Cascade)
   user   User    @relation(fields: [userId], references: [clerkId], onDelete: Cascade)
+}
+
+model completedExercise {
+  id         Int    @id
+  courseId   Int
+  chapterId  String
+  exerciseId String
+  userId     String
+
+  user     User     @relation(fields: [userId], references: [clerkId], onDelete: Cascade)
+  chapter  Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  exercise Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+  course   Courses  @relation(fields: [courseId], references: [courseId], onDelete: Cascade)
 }

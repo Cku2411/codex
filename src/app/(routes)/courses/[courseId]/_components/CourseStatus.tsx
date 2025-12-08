@@ -34,6 +34,8 @@ const CourseStatus = ({ courseDetail }: Props) => {
   };
 
   const xpEarned = courseDetail?.enrollments?.[0]?.xpEarned || 0;
+  const exerciseCompleted = courseDetail?.completedExercises?.length || 0;
+
   const updateProgress = (currenValue: number, totalNumber: number) => {
     if (currenValue && totalNumber) {
       const percent = (currenValue * 100) / totalNumber;
@@ -49,10 +51,15 @@ const CourseStatus = ({ courseDetail }: Props) => {
         <Image src={"/book.gif"} width={50} height={50} alt="book" />
         <div className="w-full">
           <h2 className="flex justify-between text-2xl">
-            Exercises{" "}
-            <span className="text-gray-400">1/{counts.totalExce}</span>
+            Exercises
+            <span className="text-gray-400">
+              {exerciseCompleted}/{counts.totalExce}
+            </span>
           </h2>
-          <Progress value={37} className="mt-2" />
+          <Progress
+            value={updateProgress(exerciseCompleted, counts.totalExce)}
+            className="mt-2"
+          />
         </div>
       </div>
 

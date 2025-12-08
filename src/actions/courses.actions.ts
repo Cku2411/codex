@@ -32,6 +32,12 @@ export const getCourseDetail = async (courseId: number, userId: string) => {
           where: { userId }, // chỉ lấy enrollment của user hiện tại
           // select: { id: true, xpEarned: true },
         },
+        completedExercises: {
+          where: {
+            userId,
+          },
+          orderBy: [{ courseId: "desc" }, { exerciseId: "desc" }],
+        },
       },
     });
 

@@ -37,6 +37,12 @@ export type Courses = {
         xpEarned: number;
       }[]
     | undefined;
+  completedExercises?: {
+    courseId: number;
+    userId: string;
+    chapterId: string;
+    exerciseId: string;
+  }[];
 };
 
 const CourseList = () => {
