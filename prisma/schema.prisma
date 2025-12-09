@@ -55,12 +55,13 @@ model Chapter {
 model Exercise {
   id                 String              @id @default(uuid())
   name               String
-  slug               String
+  slug               String              @unique
   xp                 Int
   difficulty         String
   chapterId          String
   Chapter            Chapter             @relation(fields: [chapterId], references: [id], onDelete: Cascade)
   completedExercises completedExercise[]
+  exerciseContent    ExerciseContent?
 }
 
 model Enrollment {
@@ -85,4 +86,17 @@ model completedExercise {
   chapter  Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
   exercise Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
   course   Courses  @relation(fields: [courseId], references: [courseId], onDelete: Cascade)
+}
+
+model ExerciseContent {
+  id         String   @id @default(uuid())
+  exerciseId String   @unique
+  exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+
+  objective    String // mục tiêu học tập
+  description  String // mô tả chi tiết
+  instructions String // hướng dẫn từng bước
+  example      String? // ví dụ minh họa (optional)
+  task         String // yêu cầu user thực hiện
+  evaluation   String? // tiêu chí đánh giá (optional)
 }

@@ -9,6 +9,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import TooltipCodebox from "@/components/TooltipCodebox";
+import Link from "next/link";
 
 type Props = { loading: boolean; courseDetail: Courses | undefined };
 
@@ -116,7 +117,11 @@ const CourseChapter = ({ loading, courseDetail }: Props) => {
                             <h2 className="text-2xl">{excercise.name}</h2>
                           </div>
                           {enableExerciser(chapterIndex, ExIdx) ? (
-                            <Button variant={"pixel"}>{excercise.xp}</Button>
+                            <Link
+                              href={`/courses/${courseDetail.courseId}/${excercise.slug}`}
+                            >
+                              <Button variant={"pixel"}>{excercise.xp}</Button>
+                            </Link>
                           ) : isExerciseCompleted(chapter.id, excercise.id) ? (
                             <Button variant={"pixel"} className="bg-green-600">
                               Completed
