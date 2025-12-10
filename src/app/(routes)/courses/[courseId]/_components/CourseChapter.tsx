@@ -118,7 +118,7 @@ const CourseChapter = ({ loading, courseDetail }: Props) => {
                           </div>
                           {enableExerciser(chapterIndex, ExIdx) ? (
                             <Link
-                              href={`/courses/${courseDetail.courseId}/${excercise.slug}`}
+                              href={`/courses/${courseDetail.courseId}/${chapter.id}/${excercise.slug}`}
                             >
                               <Button variant={"pixel"}>{excercise.xp}</Button>
                             </Link>
