@@ -6,6 +6,7 @@ import { getExerciseDetail } from "@/actions/exercise.acitons";
 import { useEffect, useState } from "react";
 import { Prisma } from "@/generated/prisma/client";
 import ContentSection from "./_components/ContentSection";
+import CodeEditor from "./_components/CodeEditor";
 
 const SplitterLayout = dynamic(() => import("react-splitter-layout"), {
   ssr: false,
@@ -42,7 +43,9 @@ const Playground = (props: Props) => {
         <div>
           <ContentSection exerciseData={exerciseData} isLoading={isLoading} />
         </div>
-        <div>Code editor</div>
+        <div>
+          <CodeEditor />
+        </div>
       </SplitterLayout>
     </div>
   );
