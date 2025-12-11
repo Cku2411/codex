@@ -76,7 +76,7 @@ model Enrollment {
 }
 
 model completedExercise {
-  id         Int    @id
+  id         Int    @id @default(autoincrement())
   courseId   Int
   chapterId  String
   exerciseId String

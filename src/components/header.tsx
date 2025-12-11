@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "./ui/button";
 
@@ -8,13 +8,23 @@ import Link from "next/link";
 import { ThemeToggle } from "./ToggleTheme";
 import Navbar from "./Navbar";
 import { useParams } from "next/navigation";
+import { getAllCourses } from "@/actions/courses.actions";
 
 type Props = {};
 
 const Header = (props: Props) => {
+  const [courses, setCourses] = useState();
   const { user } = useUser();
   const { exerciseslug } = useParams();
-  console.log({ exerciseslug });
+
+  const getCourses = async () => {
+    const result = await getAllCourses();
+    console.log({ result });
+  };
+
+  useEffect(() => {
+    getCourses();
+  }, []);
 
   return (
     <div className="p-4 max-w-7xl flex justify-between items-center w-full">
@@ -29,7 +39,9 @@ const Header = (props: Props) => {
         <Navbar />
       ) : (
         <>
-          <h2>{exerciseslug.toString().replace("-", " ").toUpperCase()}</h2>
+          <h2 className="text-4xl">
+            {exerciseslug.toString().replace("-", " ").toUpperCase()}
+          </h2>
         </>
       )}
 

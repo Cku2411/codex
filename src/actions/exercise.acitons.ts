@@ -30,3 +30,10 @@ export const getExerciseDetail = async (exerciseslug: string | undefined) => {
     };
   }
 };
+
+const completeExercise = async (
+  courseId: string,
+  exerciseId: string,
+  chapterId: string,
+  userId: string
+) => {};
